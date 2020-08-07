@@ -1,4 +1,4 @@
-
+import java.util.Stack;
 
 public class SingleLinkedList {
     public static void main(String[] args) {
@@ -21,6 +21,12 @@ public class SingleLinkedList {
         singleLinkedListHero.delete(5);
         System.out.println("___________________________");
         singleLinkedListHero.list();
+        System.out.println(singleLinkedListHero.length());
+        singleLinkedListHero.reverse(singleLinkedListHero.getHead());
+        System.out.println("___________________________");
+        singleLinkedListHero.list();
+        System.out.println("___________________________");
+        singleLinkedListHero.reversePrint(singleLinkedListHero.getHead());
     }
 }
 class SingleLinkedListHero{
@@ -60,6 +66,24 @@ class SingleLinkedListHero{
             temp.setNext(heroNode);
         }
     }
+    //百度面试题，将链表从后往前打印
+    //可以将链表倒置，然后打印，这样会改变链表的结构，假如链表数据特别多，也会影响性能，不推荐使用
+    //利用栈先进后出的机制，将单链表存到栈（stack）中去，然后将栈的每一个元素取出并打印，不改变原单链表的机制
+    public void reversePrint(HeroNode item){
+        if (item.getNext() == null) {
+            System.out.println("链表为空");
+            return;
+        }
+        HeroNode temp = item.getNext();
+        Stack<HeroNode> stack = new Stack<>();
+        while (temp != null){
+            stack.push(temp);
+            temp = temp.getNext();
+        }
+        while (stack.size() > 0){
+            System.out.println(stack.pop());
+        }
+    }
     public void update(HeroNode heroNode){
         HeroNode temp = head;
         boolean flag = false;
@@ -80,6 +104,39 @@ class SingleLinkedListHero{
             System.out.println("未找到编号为："+heroNode.getNum());
             return;
         }
+    }
+    //腾讯面试题，将一个单链表倒置
+    //实现思路：新增一个单链表，将原链表遍历，把原链表每一个节点都置于新增节点的最后。
+    public void reverse(HeroNode heroNode){
+        if (heroNode.getNext() == null || heroNode.getNext().getNext() == null) {
+            return;
+        }
+        HeroNode temp = head.getNext();
+        HeroNode next = null;
+        HeroNode re = new HeroNode(0,null,null);
+        while (temp != null){
+            next = temp.getNext();
+            temp.setNext(re.getNext());
+            re.setNext(temp);
+            temp = next;
+        }
+        heroNode.setNext(re.getNext());
+    }
+    //统计单链表实际长度
+    public int length(){
+        HeroNode temp = head;
+        if (temp.getNext() == null) {
+            return 0;
+        }
+        int index = 0;
+        while (true){
+            if (temp.getNext() == null) {
+                break;
+            }
+            index ++;
+            temp = temp.getNext();
+        }
+        return index;
     }
     public void delete(int num){
         HeroNode temp = head;
@@ -114,6 +171,14 @@ class SingleLinkedListHero{
             System.out.println(temp.toString());
             temp = temp.getNext();
         }
+    }
+
+    public HeroNode getHead() {
+        return head;
+    }
+
+    public void setHead(HeroNode head) {
+        this.head = head;
     }
 }
 class HeroNode{
