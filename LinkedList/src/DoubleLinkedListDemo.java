@@ -35,6 +35,30 @@ class DoubleLinkedList{
             temp = temp.getNext();
         }
     }
+    public void addByOrder(HeroNode2 heroNode){
+        HeroNode2 temp = head;
+        boolean flag = false;
+        while (true){
+            if (temp.getNext() == null) {
+                break;
+            }
+            if (temp.getNext().getNum() == heroNode.getNum()) {
+                flag = true;
+                break;
+            }else if (temp.getNext().getNum() > heroNode.getNum()) {
+                break;
+            }
+            temp = temp.getNext();
+        }
+        if (flag) {
+            System.out.println("不能添加，编号重复，编号是："+heroNode.getNum());
+        }else {
+            heroNode.setNext(temp.getNext());
+            heroNode.setPre(temp);
+            temp.setNext(heroNode);
+            temp.getNext().setPre(heroNode);
+        }
+    }
     public void addLast(HeroNode2 heroNode2){
         HeroNode2 temp = head;
         while (true){
