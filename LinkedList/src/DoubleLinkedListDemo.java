@@ -13,7 +13,7 @@ public class DoubleLinkedListDemo {
         linkedList.list();
         System.out.println("------------------------");
         linkedList.delete(4);
-        linkedList.update(heroNode5);
+        //linkedList.update(heroNode5);
         linkedList.list();
     }
 }
