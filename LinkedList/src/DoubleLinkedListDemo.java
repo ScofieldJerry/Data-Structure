@@ -6,12 +6,14 @@ public class DoubleLinkedListDemo {
         HeroNode2 heroNode4 = new HeroNode2(4,"4","4");
         HeroNode2 heroNode5 = new HeroNode2(5,"666","6666");
         DoubleLinkedList linkedList = new DoubleLinkedList();
-        linkedList.addLast(heroNode1);
-        linkedList.addLast(heroNode2);
-        linkedList.addLast(heroNode3);
-        linkedList.addLast(heroNode4);
-        linkedList.delete(1);
-        linkedList.update(heroNode5);
+        linkedList.addByOrder(heroNode2);
+        linkedList.addByOrder(heroNode3);
+        linkedList.addByOrder(heroNode1);
+        linkedList.addByOrder(heroNode4);
+        linkedList.list();
+        System.out.println("------------------------");
+        linkedList.delete(4);
+        //linkedList.update(heroNode5);
         linkedList.list();
     }
 }
@@ -21,6 +23,7 @@ class DoubleLinkedList{
     public HeroNode2 getHead(){
         return head;
     }
+    //遍历链表
     public void list(){
         if (head.getNext() == null) {
             System.out.println("列表为空");
@@ -35,6 +38,7 @@ class DoubleLinkedList{
             temp = temp.getNext();
         }
     }
+    //在指定位置插入
     public void addByOrder(HeroNode2 heroNode){
         HeroNode2 temp = head;
         boolean flag = false;
@@ -53,10 +57,16 @@ class DoubleLinkedList{
         if (flag) {
             System.out.println("不能添加，编号重复，编号是："+heroNode.getNum());
         }else {
-            heroNode.setNext(temp.getNext());
-            heroNode.setPre(temp);
-            temp.setNext(heroNode);
-            temp.getNext().setPre(heroNode);
+            if (temp.getNext() == null) {
+                temp.setNext(heroNode);
+                heroNode.setPre(temp);
+            }else {
+                heroNode.setNext(temp.getNext());
+                heroNode.setPre(temp);
+                temp.getNext().setPre(heroNode);
+                temp.setNext(heroNode);
+            }
+
         }
     }
     public void addLast(HeroNode2 heroNode2){
@@ -104,6 +114,7 @@ class DoubleLinkedList{
             }
             if (temp.getNum() == num) {
                 flag = true;
+                System.out.println("123");
                 break;
             }
             temp = temp.getNext();
