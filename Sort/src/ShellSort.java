@@ -6,6 +6,7 @@ public class ShellSort {
         shellSort(arr);
         System.out.println(Arrays.toString(arr));
     }
+    //采用交换法进行希尔排序
     public static void shellSort(int[] arr){
         int temp = 0;
         for (int i = arr.length / 2; i > 0 ; i /= 2) {
