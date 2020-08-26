@@ -19,7 +19,6 @@ public class ShellSort {
                         arr[k] = arr[k+i];
                         arr[k+i] = temp;
                     }
-                    System.out.println("" + i +"~~~~~~~~~"+ j +"~~~~~~~~~"+ i);
                 }
             }
         }
