@@ -6,6 +6,7 @@ public class ShellSort {
         shellSort2(arr);
         System.out.println(Arrays.toString(arr));
     }
+    //希尔排序也是一种插入排序，是简单插入排序修改之后一个更高效的版本，也成为缩小增量排序
     //采用交换法进行希尔排序
     public static void shellSort(int[] arr){
         int temp = 0;
