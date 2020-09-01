@@ -1,5 +1,5 @@
 import java.util.Arrays;
-//斐波那契查找算法（必须有序），实质还是微分查找，只不过使用斐波那契数列的值来定义中位值
+//斐波那契查找算法（必须有序），实质还是二分查找，只不过使用斐波那契数列的值来定义中位值
 public class FibonacciSearch {
     public static int maxSize = 10;
     public static void main(String[] args) {
