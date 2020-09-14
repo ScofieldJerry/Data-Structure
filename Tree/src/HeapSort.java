@@ -1,5 +1,8 @@
 import java.util.Arrays;
 
+/**
+ * 堆排序，升序采用大顶堆，降序采用小顶堆
+ */
 public class HeapSort {
     private int[] arr;
     public static void main(String[] args) {
