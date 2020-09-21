@@ -1,13 +1,17 @@
 public class BinarySortTreeDemo {
     public static void main(String[] args) {
-        int[] arr = {7,3,10,12,5,1,9,2};
+        int[] arr = {7,3,10,12,5,1,9,0};
         BinarySortTree binarySortTree = new BinarySortTree();
         for (int i = 0; i < arr.length; i++) {
             Node node = new Node(arr[i]);
             binarySortTree.add(node);
         }
+
         binarySortTree.infixOrder();
-        binarySortTree.delete(2);
+        binarySortTree.delete(10);
+        //binarySortTree.delete(2);
+        //binarySortTree.delete(5);
+
         System.out.println("删除后");
         binarySortTree.infixOrder();
     }
@@ -32,6 +36,15 @@ class BinarySortTree{
         }
     }
 
+    public int delRight(Node node){
+        Node target = node;
+        while (target.getLeft() != null) {
+            target = target.getLeft();
+        }
+        delete(target.getVal());
+        return target.getVal();
+    }
+
     public void delete(int val){
         if (root == null) {
             return;
@@ -45,13 +58,30 @@ class BinarySortTree{
                 return;
             }
             Node node = searchParent(val);
-            if (search.getLeft() == null && search.getRight() == null) {
+            if (search.getLeft() == null && search.getRight() == null) {//删除叶子结点
                 if (node.getLeft() != null && node.getLeft().getVal() == search.getVal()) {
                     node.setLeft(null);
                     return;
                 } else if (node.getRight() != null && node.getRight().getVal() == search.getVal()) {
                     node.setRight(null);
                     return;
+                }
+            } else if (search.getLeft() != null && search.getRight() != null) {//删除有两颗子树的节点
+                int i = delRight(search.getRight());
+                search.setVal(i);
+            } else {//删除只有一颗子树的节点
+                if (search.getLeft() != null) {
+                    if (node.getLeft().getVal() == search.getVal()) {
+                        node.setLeft(search.getLeft());
+                    } else {
+                        node.setRight(search.getLeft());
+                    }
+                } else {
+                    if (node.getLeft().getVal() == search.getVal()) {
+                        node.setLeft(search.getRight());
+                    } else {
+                        node.setRight(search.getRight());
+                    }
                 }
             }
         }
