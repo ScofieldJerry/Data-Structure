@@ -8,7 +8,16 @@ public class BinarySortTreeDemo {
         }
 
         binarySortTree.infixOrder();
+        binarySortTree.delete(7);
+        binarySortTree.delete(3);
+        binarySortTree.delete(12);
+        binarySortTree.delete(5);
+        binarySortTree.delete(9);
+        binarySortTree.delete(0);
+        binarySortTree.delete(1);
         binarySortTree.delete(10);
+
+
         //binarySortTree.delete(2);
         //binarySortTree.delete(5);
 
@@ -71,16 +80,24 @@ class BinarySortTree{
                 search.setVal(i);
             } else {//删除只有一颗子树的节点
                 if (search.getLeft() != null) {
-                    if (node.getLeft().getVal() == search.getVal()) {
-                        node.setLeft(search.getLeft());
+                    if (node != null) {
+                        if (node.getLeft().getVal() == search.getVal()) {
+                            node.setLeft(search.getLeft());
+                        } else {
+                            node.setRight(search.getLeft());
+                        }
                     } else {
-                        node.setRight(search.getLeft());
+                        root = search.getLeft();
                     }
                 } else {
-                    if (node.getLeft().getVal() == search.getVal()) {
-                        node.setLeft(search.getRight());
+                    if (node != null) {
+                        if (node.getLeft().getVal() == search.getVal()) {
+                            node.setLeft(search.getRight());
+                        } else {
+                            node.setRight(search.getRight());
+                        }
                     } else {
-                        node.setRight(search.getRight());
+                        root = search.getRight();
                     }
                 }
             }
