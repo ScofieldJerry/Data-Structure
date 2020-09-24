@@ -1,3 +1,6 @@
+/**
+ * 二叉排序树
+ */
 public class BinarySortTreeDemo {
     public static void main(String[] args) {
         int[] arr = {7,3,10,12,5,1,9,0};
