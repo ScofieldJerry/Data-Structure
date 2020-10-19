@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Graph {
     private ArrayList<String> vertexList;//存储顶点集合
@@ -8,18 +9,30 @@ public class Graph {
     private boolean[] isVisited;
 
     public static void main(String[] args) {
-        String[] vertex = {"A","B","C","D","E"};
-        Graph graph = new Graph(5);
-        for (int i = 0; i < 5; i++) {
+        //String[] vertex = {"A","B","C","D","E"};
+        String[] vertex = {"1","2","3","4","5","6","7","8"};
+        Graph graph = new Graph(8);
+        for (int i = 0; i < 8; i++) {
             graph.insertVertexList(vertex[i]);
         }
+//        graph.insertEdges(0,1,1);
+//        graph.insertEdges(0,2,1);
+//        graph.insertEdges(1,2,1);
+//        graph.insertEdges(1,3,1);
+//        graph.insertEdges(1,4,1);
         graph.insertEdges(0,1,1);
         graph.insertEdges(0,2,1);
-        graph.insertEdges(1,2,1);
         graph.insertEdges(1,3,1);
         graph.insertEdges(1,4,1);
+        graph.insertEdges(3,7,1);
+        graph.insertEdges(4,7,1);
+        graph.insertEdges(2,5,1);
+        graph.insertEdges(2,6,1);
+        graph.insertEdges(5,6,1);
         graph.show();
         graph.dfs();
+        System.out.println("//////////");
+        graph.bfs();
     }
 
     public Graph(int n) {
@@ -95,6 +108,36 @@ public class Graph {
     public void show(){
         for (int[] link:edges) {
             System.out.println(Arrays.toString(link));
+        }
+    }
+    //对一个节点进行广度优先遍历的方法
+    public void bfs(boolean[] isVisited, int i){
+        int u;//表示队列头节点的下标
+        int w;//领接节点
+        //队列，记录节点访问的顺序
+        LinkedList<Integer> queue = new LinkedList();
+        System.out.println(getValByIndex(i) + "=>");
+        isVisited[i] = true;
+        queue.addLast(i);
+        while (!queue.isEmpty()){
+            u = queue.removeFirst();
+            w = getFirstNeighbor(u);
+            while (w != -1){
+                if (!isVisited[w]){
+                    System.out.println(getValByIndex(w) + "=>");
+                    isVisited[w] = true;
+                    queue.addLast(w);
+                }
+                w = getNextNeighbor(u, w);//体现出广度优先
+            }
+        }
+    }
+    //遍历所有的节点，都进行广度优先搜索
+    public  void  bfs(){
+        for (int i = 0; i < getNumOfVertex(); i++) {
+            if (isVisited[i]) {
+                bfs(isVisited, i);
+            }
         }
     }
 }
